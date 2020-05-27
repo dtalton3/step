@@ -4,6 +4,19 @@
   width: 650px;
 }
 
+div {
+    /*width: 300px;
+    border: 15px solid green;
+    padding: 50px;
+    margin: 20px;*/
+}
 #greeting-container {
   margin-top: 20px;
+}
+
+h1 {
+    text-align: center;
+    color: black;
+    text-shadow: 1px 1px 3px salmon;
+    font: 20px, serif;
 }
