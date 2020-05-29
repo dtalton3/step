@@ -1,22 +1,68 @@
+.bigtext {
+    font-size: 16px;
+    text-align: center;
+}
+#blog {
+    background-color: blanchedalmond;
+    text-align: center;
+}
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+.centertext {
+    text-align: center;
+}
 #content {
   margin-left: auto;
   margin-right: auto;
   width: 650px;
 }
-
-div {
-    /*width: 300px;
-    border: 15px solid green;
-    padding: 50px;
-    margin: 20px;*/
+#factgetter {
+  margin-top: 10px;
 }
-#greeting-container {
-  margin-top: 20px;
-}
-
-h1 {
+#whoamI {
     text-align: center;
+}
+.gallery {
+    width: 350px;
+    height: 350px;
+}
+h1 {
+    text-align: left;
     color: black;
     text-shadow: 1px 1px 3px salmon;
     font: 20px, serif;
+    padding-left: 180px;
 }
+.image1 {
+    width: 150px;
+    height: 150px;
+}
+.image2{
+    width: 300px;
+    height: 300px;
+}
+.image4 {
+    width: 200px;
+    height: 200px;
+}
+.image5 {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 500px;
+    height: 250px;
+}
+.leftpad1 {
+    padding-left: 210px;
+}
+.lefttext {
+    text-align: left;
+}
+.righttext {
+    text-align: right;
+}
+
