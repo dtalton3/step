@@ -13,7 +13,6 @@
 // limitations under the License.
 
 package com.google.sps.servlets;
-
 import java.io.IOException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,14 +25,12 @@ import com.google.gson.Gson;
 /** Servlet that returns some example content. TODO: modify this file to handle comments data */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
-
   private List<String> facts;
 
-@Override
+  @Override
   public void init() {
     facts = new ArrayList<>();
-    facts.add(
-        "My birthday is June 19, 2000.");
+    facts.add("My birthday is June 19, 2000.");
     facts.add("I once had 10 pets dogs all at once.");
     facts.add("I have a YouTube video that is semi-viral... if I do say so myself.");
     facts.add("I am interested in videography and photography");
@@ -43,10 +40,8 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
     String json = convertToJsonUsingGson(facts);
     response.setContentType("application/json");
-  
     response.getWriter().println(json);
   }
 
