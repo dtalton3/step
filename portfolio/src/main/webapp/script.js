@@ -31,3 +31,17 @@ function funFactGenerator() {
   const factGetter = document.getElementById('factgetter');
   factGetter.innerText = fact;
 }
+
+function serverFunFact() {
+    
+    fetch('/data').then(facts => facts.json()).then(jsonfacts => {
+
+    // Pick a random fact.
+    const fact = jsonfacts[Math.floor(Math.random() * jsonfacts.length)];
+
+    // Add it to the page.
+    const factGetter = document.getElementById('factgetter');
+    factGetter.innerText = fact;
+
+    })
+}
