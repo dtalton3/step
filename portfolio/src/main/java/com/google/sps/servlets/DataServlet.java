@@ -14,6 +14,7 @@
 
 package com.google.sps.servlets;
 import java.io.IOException;
+import java.io.BufferedReader;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import com.google.gson.Gson;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   private List<String> facts;
+  private List<String> comments;
 
   @Override
   public void init() {
@@ -36,6 +38,7 @@ public class DataServlet extends HttpServlet {
     facts.add("I am interested in videography and photography");
     facts.add("My dream job is to work with the team that developed YouTube, or create my own rivalling service.");
     facts.add("I would have been in Bellevue, Washington if not for COVID-19");
+    comments = new ArrayList<>();
   }
 
   @Override
@@ -44,10 +47,21 @@ public class DataServlet extends HttpServlet {
     response.setContentType("application/json");
     response.getWriter().println(json);
   }
+  
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    BufferedReader bReader = request.getReader();
+    String comment = bReader.readLine();
+    System.out.println(comment);
+    comments.add(comment);
+    String commentjson = convertToJsonUsingGson(comments);
+    response.setContentType("application/json");
+    response.getWriter().println(commentjson);
+  }
 
   private String convertToJsonUsingGson(List<String> list) {
-        Gson gson = new Gson();
-        String json = gson.toJson(list);
-        return json;
+    Gson gson = new Gson();
+    String json = gson.toJson(list);
+    return json;
   }
 }
