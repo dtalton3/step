@@ -32,16 +32,32 @@ function funFactGenerator() {
   factGetter.innerText = fact;
 }
 
-function serverFunFact() {
-    
+/**
+ * Displays a fun fact about Desmond on the page.
+ */
+function serverFunFact() { 
     fetch('/data').then(facts => facts.json()).then(jsonfacts => {
 
-    // Pick a random fact.
-    const fact = jsonfacts[Math.floor(Math.random() * jsonfacts.length)];
+        // Pick a random fact.
+        const fact = jsonfacts[Math.floor(Math.random() * jsonfacts.length)];
 
-    // Add it to the page.
-    const factGetter = document.getElementById('factgetter');
-    factGetter.innerText = fact;
+        // Add it to the page.
+        document.getElementById('factgetter').innerText = fact;
+    })
+}
 
+/**
+ * Adds user's comment to the page.
+ */
+function showComments() {
+
+    // Starts post request using user's input.           
+    var request = new Request("/data", {method: "POST",
+                body: document.getElementById("textfield").value});
+
+    // Fetches server comment data and writes it to the page.
+    fetch(request).then(comments => comments.json()).then(jsoncomments => {
+        document.getElementById("thecomments").innerHTML += "<p>" + 
+        [jsoncomments.length - 1] + "</p";
     })
 }
