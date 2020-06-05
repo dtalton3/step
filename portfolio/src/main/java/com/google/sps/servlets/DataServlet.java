@@ -44,7 +44,6 @@ public class DataServlet extends HttpServlet {
 
   private static int userNum = 0;
 
-
   @Override
   public void init() {
     facts = new ArrayList<>();
@@ -54,6 +53,7 @@ public class DataServlet extends HttpServlet {
     facts.add("I am interested in videography and photography");
     facts.add("My dream job is to work with the team that developed YouTube, or create my own rivalling service.");
     facts.add("I would have been in Bellevue, Washington if not for COVID-19");
+
     comments = new ArrayList<>();
   }
 
