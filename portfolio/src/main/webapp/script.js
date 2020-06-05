@@ -36,14 +36,16 @@ function funFactGenerator() {
  * Displays a fun fact about Desmond on the page.
  */
 function serverFunFact() { 
-    fetch('/data').then(facts => facts.json()).then(jsonfacts => {
+
+    // Fetch the data from the server.
+    fetch("/data").then(dataHashMap => dataHashMap.json()).then(dataHashMapJson => {
 
         // Pick a random fact.
-        const fact = jsonfacts[Math.floor(Math.random() * jsonfacts.length)];
+        const fact = 
+        dataHashMapJson.Facts[Math.floor(Math.random() * dataHashMapJson.Facts.length)]
 
         // Add it to the page.
-        const factGetter = document.getElementById('factgetter');
-        factGetter.innerText = fact;
+        document.getElementById('factgetter').innerText = fact;
     })
 }
 
@@ -52,14 +54,24 @@ function serverFunFact() {
  */
 function showComments() {
 
-    // Starts post request using user's input.
-    var init = {method: "POST",
-                body: document.getElementById("textfield").value};             
-    var request = new Request("/data", init);
+    // Starts post request using user's input.            
+    var request = new Request("/data", {method: "POST",
+                body: document.getElementById("textfield").value});
 
     // Fetches server comment data and writes it to the page.
     fetch(request).then(comments => comments.json()).then(jsoncomments => {
         document.getElementById("thecomments").innerHTML += "<p>" + 
-        [jsoncomments.length - 1] + "</p";
+        jsoncomments[jsoncomments.length - 1] + "</p";
+    })
+}
+
+/**
+ * Accesses the comments from the datastore and displays them.
+ */
+function loadComments() {
+    fetch("/data").then(dataHashMap => dataHashMap.json()).then(dataHashMapJson => {
+        for (comment of dataHashMapJson.Comments) {
+            document.getElementById("thecomments").innerHTML += "<p>" + comment + "</p";
+        }
     })
 }
