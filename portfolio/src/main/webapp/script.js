@@ -42,8 +42,7 @@ function serverFunFact() {
         const fact = jsonfacts[Math.floor(Math.random() * jsonfacts.length)];
 
         // Add it to the page.
-        const factGetter = document.getElementById('factgetter');
-        factGetter.innerText = fact;
+        document.getElementById('factgetter').innerText = fact;
     })
 }
 
@@ -52,10 +51,9 @@ function serverFunFact() {
  */
 function showComments() {
 
-    // Starts post request using user's input.
-    var init = {method: "POST",
-                body: document.getElementById("textfield").value};             
-    var request = new Request("/data", init);
+    // Starts post request using user's input.           
+    var request = new Request("/data", {method: "POST",
+                body: document.getElementById("textfield").value});
 
     // Fetches server comment data and writes it to the page.
     fetch(request).then(comments => comments.json()).then(jsoncomments => {
