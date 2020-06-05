@@ -33,7 +33,7 @@ function funFactGenerator() {
 }
 
 /**
- * Displays a fun fact about Desmond on the page.
+ * Displays fun facts about Desmond on the page.
  */
 function serverFunFact() { 
     fetch('/data').then(facts => facts.json()).then(jsonfacts => {
