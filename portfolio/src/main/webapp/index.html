@@ -88,6 +88,16 @@
             <p> Desmond in a jacuzzi with his friend, Rani. </p>
         </div>
         <h>COMMENTS</h>
+        <p> Comments to Display: 
+            <form>
+            <select id="CommentNumber">
+                <option selected value="5">5</option>
+                <option value="10">10</option>
+            </select>
+            </form>
+            <button onclick="refreshComments()">Refresh.</button>
+            <button onclick="deleteComments()">Clear.</button>
+        </p>
         <div id="thecomments"></div>
         <script>
             loadComments();
@@ -95,7 +105,7 @@
         <div id="commentsection">
                 <p>Type a comment:</p>
                 <input type="text" name="commentpost" value="" id="textfield">
-                    <button onclick="showComments()"></button>
+                    <button onclick="showComments()">Post.</button>
                 <br/><br/>
                </input>
         </div>

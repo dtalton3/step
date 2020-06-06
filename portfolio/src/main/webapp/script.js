@@ -63,6 +63,7 @@ function showComments() {
         document.getElementById("thecomments").innerHTML += "<p>" + 
         jsoncomments[jsoncomments.length - 1] + "</p";
     })
+    loadComments();
 }
 
 /**
@@ -70,8 +71,45 @@ function showComments() {
  */
 function loadComments() {
     fetch("/data").then(dataHashMap => dataHashMap.json()).then(dataHashMapJson => {
-        for (comment of dataHashMapJson.Comments) {
-            document.getElementById("thecomments").innerHTML += "<p>" + comment + "</p";
+        if (document.getElementById("CommentNumber").options[0].selected === true) { //5
+            for (i = 0; i < 5; i++) {
+                if (dataHashMapJson.Comments.length < i) {
+                    break;
+                } else {
+                    if (i == 0) {
+                        document.getElementById("thecomments").innerHTML = "<p>" + 
+                        dataHashMapJson.Comments[dataHashMapJson.Comments.length - 1] + "</p";
+                    } else {
+                        document.getElementById("thecomments").innerHTML += "<p>" + 
+                        dataHashMapJson.Comments[dataHashMapJson.Comments.length - (1 + i)] + "</p";
+                    }
+                }
+            }
+        } else { //10
+            for (i = 0; i < 10; i++) {
+                if (dataHashMapJson.Comments.length < i) {
+                    break;
+                } else {
+                    if (i == 0) {
+                        document.getElementById("thecomments").innerHTML = "<p>" + 
+                        dataHashMapJson.Comments[dataHashMapJson.Comments.length - 1] + "</p";
+                    } else {
+                        document.getElementById("thecomments").innerHTML += "<p>" + 
+                        dataHashMapJson.Comments[dataHashMapJson.Comments.length - (1 + i)] + "</p";
+                    }
+                }
+            }
         }
     })
+}
+
+function refreshComments() {
+    loadComments();
+}
+
+function deleteComments() {
+    fetch("/data").then(dataHashMap => dataHashMap.json()).then(dataHashMapJson => {
+
+    })
+    loadComments();
 }

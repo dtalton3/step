@@ -34,7 +34,7 @@ import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
 import com.google.appengine.api.datastore.Entity;
 
-/** Servlet that returns some example content. TODO: modify this file to handle comments data */
+/** Servlet that returns some example content.*/
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   private List<String> facts;
