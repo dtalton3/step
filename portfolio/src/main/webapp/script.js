@@ -70,7 +70,6 @@ function showComments() {
  */
 function loadComments() {
     fetch("/data").then(dataHashMap => dataHashMap.json()).then(dataHashMapJson => {
-<<<<<<< HEAD
         console.log(dataHashMapJson);
         const len = dataHashMapJson.Comments.length;
         var comments = dataHashMapJson.Comments;
