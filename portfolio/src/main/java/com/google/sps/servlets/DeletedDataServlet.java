@@ -37,9 +37,7 @@ import com.google.appengine.api.datastore.Entity;
 /** Servlet that returns some example content.*/
 @WebServlet("/delete-data")
 public class DeletedDataServlet extends HttpServlet {
-
     private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Query query = new Query("Comment").addSort("User", SortDirection.DESCENDING);
