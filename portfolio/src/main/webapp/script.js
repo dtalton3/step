@@ -108,7 +108,7 @@ function refreshComments() {
 }
 
 function deleteComments() {
-    fetch("/data").then(dataHashMap => dataHashMap.json()).then(dataHashMapJson => {
+    fetch("/delete-data", {method: "POST"}).then(dataHashMap => dataHashMap.json()).then(dataHashMapJson => {
 
     })
     loadComments();
