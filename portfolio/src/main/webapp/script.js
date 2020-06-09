@@ -91,3 +91,21 @@ function deleteAllComments() {
     document.getElementById("thecomments").innerHTML = "";
     fetch("/delete-data", {method: "POST"}).then(res => loadComments());
 }
+
+function authenticateUser() {
+    fetch("/user-login").then(userHashMap => userHashMap.json()).then(userHashMapJson => {
+        console.log(userHashMapJson);
+        if (userHashMapJson.valid === true) {
+            document.getElementById("commentsection").innerHTML = 
+            '<p>Type a comment:</p>' +
+            '<input type="text" name="commentpost" value="" id="textfield">' +
+            '<button onclick="showComments()">Post.</button><br/><br/></input>' + 
+            "<p> <a href=\"" + userHashMapJson.logoutUrl + "\">Logout </a></p>"
+
+            ;
+        } else {
+            document.getElementById("commentsection").innerHTML = 
+            "<p> <a href=\"" + userHashMapJson.loginUrl + "\">Login </a>to post comments.</p>";
+        }
+    }) 
+}
