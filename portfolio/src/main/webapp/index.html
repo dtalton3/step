@@ -102,13 +102,12 @@
         <script>
             loadComments();
         </script>
+        <div id=login></div>
         <div id="commentsection">
-                <p>Type a comment:</p>
-                <input type="text" name="commentpost" value="" id="textfield">
-                    <button onclick="showComments()">Post.</button>
-                <br/><br/>
-               </input>
         </div>
+        <script>
+                authenticateUser();
+        </script>
     </div>
   </body>
 </html>
