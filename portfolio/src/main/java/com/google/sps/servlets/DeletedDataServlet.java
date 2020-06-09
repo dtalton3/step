@@ -38,14 +38,7 @@ import com.google.appengine.api.datastore.Entity;
 @WebServlet("/delete-data")
 public class DeletedDataServlet extends HttpServlet {
 
-
     private DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-
-    
-    @Override
-    public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-
-    }
 
     @Override
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -54,10 +47,9 @@ public class DeletedDataServlet extends HttpServlet {
         for (Entity entity : results.asIterable()) {
             datastore.delete(entity.getKey());
         }
+        
         HashMap<String, List<String>> data = new HashMap<String, List<String>>();
-
         data.put("Comments", new ArrayList<String>());
-
         String json = convertToJsonUsingGson(data);
 
         response.setContentType("application/json");

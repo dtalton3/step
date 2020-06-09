@@ -71,31 +71,32 @@ function showComments() {
  */
 function loadComments() {
     fetch("/data").then(dataHashMap => dataHashMap.json()).then(dataHashMapJson => {
+        const len = dataHashMapJson.Comments.length;
         if (document.getElementById("CommentNumber").options[0].selected === true) { //5
-            for (i = 0; i < 5; i++) {
-                if (dataHashMapJson.Comments.length < i) {
+            for (let i = 0; i < 5; i++) {
+                if (len < i) {
                     break;
                 } else {
                     if (i == 0) {
                         document.getElementById("thecomments").innerHTML = "<p>" + 
-                        dataHashMapJson.Comments[dataHashMapJson.Comments.length - 1] + "</p";
+                        dataHashMapJson.Comments[len - 1] + "</p";
                     } else {
                         document.getElementById("thecomments").innerHTML += "<p>" + 
-                        dataHashMapJson.Comments[dataHashMapJson.Comments.length - (1 + i)] + "</p";
+                        dataHashMapJson.Comments[len - (1 + i)] + "</p";
                     }
                 }
             }
         } else { //10
-            for (i = 0; i < 10; i++) {
-                if (dataHashMapJson.Comments.length < i) {
+            for (let i = 0; i < 10; i++) {
+                if (len < i) {
                     break;
                 } else {
                     if (i == 0) {
                         document.getElementById("thecomments").innerHTML = "<p>" + 
-                        dataHashMapJson.Comments[dataHashMapJson.Comments.length - 1] + "</p";
+                        dataHashMapJson.Comments[len - 1] + "</p";
                     } else {
                         document.getElementById("thecomments").innerHTML += "<p>" + 
-                        dataHashMapJson.Comments[dataHashMapJson.Comments.length - (1 + i)] + "</p";
+                        dataHashMapJson.Comments[len - (1 + i)] + "</p";
                     }
                 }
             }
@@ -107,9 +108,8 @@ function refreshComments() {
     loadComments();
 }
 
-function deleteComments() {
+function deleteAllComments() {
     fetch("/delete-data", {method: "POST"}).then(dataHashMap => dataHashMap.json()).then(dataHashMapJson => {
-
+        loadComments();
     })
-    loadComments();
 }
