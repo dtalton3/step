@@ -47,6 +47,13 @@ public class DeletedDataServlet extends HttpServlet {
         for (Entity entity : results.asIterable()) {
             datastore.delete(entity.getKey());
         }
+        
+        HashMap<String, List<String>> data = new HashMap<String, List<String>>();
+        data.put("Comments", new ArrayList<String>());
+        String json = convertToJsonUsingGson(data);
+
+        response.setContentType("application/json");
+        response.getWriter().println(json);
     }
 
     private String convertToJsonUsingGson(Object list) {

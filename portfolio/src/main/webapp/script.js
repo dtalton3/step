@@ -61,7 +61,7 @@ function showComments() {
     // Fetches server comment data and writes it to the page.
     fetch(request).then(comments => comments.json()).then(jsoncomments => {
         document.getElementById("thecomments").innerHTML += "<p>" + 
-        jsoncomments[jsoncomments.length - 1] + "</p>";
+        jsoncomments[jsoncomments.length - 1] + "</p";
     })
     loadComments();
 }
@@ -79,10 +79,10 @@ function loadComments() {
                 } else {
                     if (i == 0) {
                         document.getElementById("thecomments").innerHTML = "<p>" + 
-                        dataHashMapJson.Comments[len - 1] + "</p>";
+                        dataHashMapJson.Comments[len - 1] + "</p";
                     } else {
                         document.getElementById("thecomments").innerHTML += "<p>" + 
-                        dataHashMapJson.Comments[len - (1 + i)] + "</p>";
+                        dataHashMapJson.Comments[len - (1 + i)] + "</p";
                     }
                 }
             }
@@ -93,10 +93,10 @@ function loadComments() {
                 } else {
                     if (i == 0) {
                         document.getElementById("thecomments").innerHTML = "<p>" + 
-                        dataHashMapJson.Comments[len - 1] + "</p>";
+                        dataHashMapJson.Comments[len - 1] + "</p";
                     } else {
                         document.getElementById("thecomments").innerHTML += "<p>" + 
-                        dataHashMapJson.Comments[len - (1 + i)] + "</p>";
+                        dataHashMapJson.Comments[len - (1 + i)] + "</p";
                     }
                 }
             }
@@ -109,5 +109,7 @@ function refreshComments() {
 }
 
 function deleteAllComments() {
-    fetch("/delete-data", {method: "POST"}).then(loadComments());
+    fetch("/delete-data", {method: "POST"}).then(dataHashMap => dataHashMap.json()).then(dataHashMapJson => {
+        loadComments();
+    })
 }
