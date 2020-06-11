@@ -59,11 +59,10 @@ function showComments() {
                 body: document.getElementById("textfield").value});
 
     // Fetches server comment data and writes it to the page.
-    fetch(request).then(comments => comments.json()).then(jsoncomments => {
-        document.getElementById("thecomments").innerHTML += "<p>" + 
-        jsoncomments[jsoncomments.length - 1] + "</p";
-    })
-    loadComments();
+    fetch(request).then(res => {
+        console.log(res);
+        loadComments();
+    });
 }
 
 /**
@@ -71,36 +70,18 @@ function showComments() {
  */
 function loadComments() {
     fetch("/data").then(dataHashMap => dataHashMap.json()).then(dataHashMapJson => {
+        console.log(dataHashMapJson);
         const len = dataHashMapJson.Comments.length;
-        if (document.getElementById("CommentNumber").options[0].selected === true) { //5
-            for (let i = 0; i < 5; i++) {
-                if (len < i) {
-                    break;
-                } else {
-                    if (i == 0) {
-                        document.getElementById("thecomments").innerHTML = "<p>" + 
-                        dataHashMapJson.Comments[len - 1] + "</p";
-                    } else {
-                        document.getElementById("thecomments").innerHTML += "<p>" + 
-                        dataHashMapJson.Comments[len - (1 + i)] + "</p";
-                    }
-                }
-            }
-        } else { //10
-            for (let i = 0; i < 10; i++) {
-                if (len < i) {
-                    break;
-                } else {
-                    if (i == 0) {
-                        document.getElementById("thecomments").innerHTML = "<p>" + 
-                        dataHashMapJson.Comments[len - 1] + "</p";
-                    } else {
-                        document.getElementById("thecomments").innerHTML += "<p>" + 
-                        dataHashMapJson.Comments[len - (1 + i)] + "</p";
-                    }
-                }
-            }
+        var comments = dataHashMapJson.Comments;
+        let commNum = Math.min(document.getElementById("CommentNumber").options[0].selected ? 5 : 10, len);
+        var commentString = "";
+        //console.log(commNum);
+        var startIdx = len - commNum;
+        for (let i = startIdx; i < len; i++) {
+            commentString += "<p>" + comments[i] + "</p>";
         }
+        //console.log(dataHashMapJson);
+        document.getElementById("thecomments").innerHTML = commentString;
     })
 }
 
@@ -109,6 +90,7 @@ function refreshComments() {
 }
 
 function deleteAllComments() {
+    document.getElementById("thecomments").innerHTML = "";
     fetch("/delete-data", {method: "POST"}).then(dataHashMap => dataHashMap.json()).then(dataHashMapJson => {
         loadComments();
     })
