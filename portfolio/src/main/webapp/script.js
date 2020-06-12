@@ -75,12 +75,10 @@ function loadComments() {
         var comments = dataHashMapJson.Comments;
         let commNum = Math.min(document.getElementById("CommentNumber").options[0].selected ? 5 : 10, len);
         var commentString = "";
-        //console.log(commNum);
         var startIdx = len - commNum;
         for (let i = startIdx; i < len; i++) {
             commentString += "<p>" + comments[i] + "</p>";
         }
-        //console.log(dataHashMapJson);
         document.getElementById("thecomments").innerHTML = commentString;
     })
 }
@@ -91,7 +89,5 @@ function refreshComments() {
 
 function deleteAllComments() {
     document.getElementById("thecomments").innerHTML = "";
-    fetch("/delete-data", {method: "POST"}).then(dataHashMap => dataHashMap.json()).then(dataHashMapJson => {
-        loadComments();
-    })
+    fetch("/delete-data", {method: "POST"}).then(res => loadComments());
 }
