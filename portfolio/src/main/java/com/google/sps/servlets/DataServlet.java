@@ -85,6 +85,7 @@ public class DataServlet extends HttpServlet {
     
     userComment.setProperty("User", "User #" + (++userNum));
     userComment.setProperty("Comment", comment);
+    userComment.setProperty("timestamp", System.currentTimeMillis());
 
     datastore.put(userComment);
 
@@ -102,13 +103,11 @@ public class DataServlet extends HttpServlet {
 
   public List<String> loadCommentH() {
     List<String> list = new ArrayList<String>();
-
-    Query query = new Query("Comment").addSort("User", SortDirection.DESCENDING);
+    Query query = new Query("Comment").addSort("timestamp", SortDirection.ASCENDING);
     PreparedQuery results = datastore.prepare(query);
     for (Entity entity : results.asIterable()) {
         list.add((String) entity.getProperty("Comment"));
     }
-
     return list;
   }
 }
