@@ -29,7 +29,7 @@ function funFactGenerator() {
 
   // Add it to the page.
   const factGetter = document.getElementById('factgetter');
-  factGetter.innerText = fact;
+  factGetter.innerText = fact;it 
 }
 
 /**
