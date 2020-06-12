@@ -80,10 +80,6 @@ public class DataServlet extends HttpServlet {
     userComment.setProperty("User", "User #" + (++userNum));
     userComment.setProperty("Comment", comment);
     userComment.setProperty("timestamp", System.currentTimeMillis());
-<<<<<<< HEAD
-
-=======
->>>>>>> Implement translation and authentication
     datastore.put(userComment);
     comments.add(comment);
     String commentjson = convertToJsonUsingGson(comments);
