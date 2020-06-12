@@ -69,7 +69,7 @@ function showComments() {
  * Accesses the comments from the datastore and displays them.
  */
 function loadComments() {
-    fetch("/data").then(dataHashMap => dataHashMap.json()).then(dataHashMapJson => {
+    fetch("/data?lang=" + document.getElementById("language").value).then(dataHashMapJson => {
         console.log(dataHashMapJson);
         const len = dataHashMapJson.Comments.length;
         var comments = dataHashMapJson.Comments;
@@ -88,7 +88,7 @@ function refreshComments() {
 }
 
 function deleteAllComments() {
-    document.getElementById("thecomments").innerHTML = "";
+    document.getElementById("thecomments").innerHTML = "";  
     fetch("/delete-data", {method: "POST"}).then(res => loadComments());
 }
 
@@ -100,9 +100,7 @@ function authenticateUser() {
             '<p>Type a comment:</p>' +
             '<input type="text" name="commentpost" value="" id="textfield">' +
             '<button onclick="showComments()">Post.</button><br/><br/></input>' + 
-            "<p> <a href=\"" + userHashMapJson.logoutUrl + "\">Logout </a></p>"
-
-            ;
+            "<p> <a href=\"" + userHashMapJson.logoutUrl + "\">Logout </a></p>";
         } else {
             document.getElementById("commentsection").innerHTML = 
             "<p> <a href=\"" + userHashMapJson.loginUrl + "\">Login </a>to post comments.</p>";

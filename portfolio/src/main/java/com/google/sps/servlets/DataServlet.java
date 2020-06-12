@@ -28,6 +28,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import com.google.cloud.translate.Translate;
+import com.google.cloud.translate.TranslateOptions;
+import com.google.cloud.translate.Translation;
 import java.util.List;
 import com.google.gson.Gson;
 import com.google.appengine.api.datastore.DatastoreService;
@@ -59,17 +62,11 @@ public class DataServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-    
-
-    List<String> commentsInJson = loadCommentH();
-
     HashMap<String, List<String>> data = new HashMap<String, List<String>>();
-
+    String lang = request.getParameter("lang");
     data.put("Facts", facts);
-    data.put("Comments", loadCommentH());
-
+    data.put("Comments", loadCommentH(lang));
     String json = convertToJsonUsingGson(data);
-
     response.setContentType("application/json");
     response.getWriter().println(json);
   }
@@ -79,16 +76,15 @@ public class DataServlet extends HttpServlet {
     BufferedReader bReader = request.getReader();
     String comment = bReader.readLine();
     System.out.println(comment);
-    
-    
     Entity userComment = new Entity("Comment");
-    
     userComment.setProperty("User", "User #" + (++userNum));
     userComment.setProperty("Comment", comment);
     userComment.setProperty("timestamp", System.currentTimeMillis());
+<<<<<<< HEAD
 
+=======
+>>>>>>> Implement translation and authentication
     datastore.put(userComment);
-
     comments.add(comment);
     String commentjson = convertToJsonUsingGson(comments);
     response.setContentType("application/json");
@@ -101,12 +97,15 @@ public class DataServlet extends HttpServlet {
     return json;
   }
 
-  public List<String> loadCommentH() {
+  public List<String> loadCommentH(String lang) {
     List<String> list = new ArrayList<String>();
     Query query = new Query("Comment").addSort("timestamp", SortDirection.ASCENDING);
     PreparedQuery results = datastore.prepare(query);
     for (Entity entity : results.asIterable()) {
-        list.add((String) entity.getProperty("Comment"));
+        Translate translate = TranslateOptions.getDefaultInstance().getService();
+        Translation translation = translate.translate((String) entity.getProperty("Comment"), Translate.TranslateOption.targetLanguage(lang));
+        String translatedText = translation.getTranslatedText();
+        list.add(translatedText);
     }
     return list;
   }
