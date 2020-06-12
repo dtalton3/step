@@ -48,24 +48,15 @@ public class UserServlet extends HttpServlet {
         HashMap<String, Object> userCredentials = new HashMap<String, Object>();
 
         if (userService.isUserLoggedIn()) {
-
             userCredentials.put("email", userService.getCurrentUser().getEmail());
             userCredentials.put("valid", new Boolean(true));
-            userCredentials.put("logoutUrl", userService.createLogoutURL("/index.html"));
-
-            
+            userCredentials.put("logoutUrl", userService.createLogoutURL("/index.html")); 
         } else {
             userCredentials.put("valid", new Boolean(false));
             userCredentials.put("loginUrl", userService.createLoginURL("/index.html"));
         }
-
         response.setContentType("application/json");
         response.getWriter().println(convertToJsonUsingGson(userCredentials));
-  }
-
-  @Override
-  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-      
   }
 
   private String convertToJsonUsingGson(Object list) {
