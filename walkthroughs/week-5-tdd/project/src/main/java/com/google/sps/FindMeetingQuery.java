@@ -44,9 +44,17 @@ public final class FindMeetingQuery {
         for (Event event: events) {
             if (potentialMeetingTime.overlaps(event.getWhen())) {
                 for (String attendee: request.getAttendees()) {
-                    if (event.getAttendees().contains(attendee)) {
-                        available = false;
-                        break;
+                    if (request.getOptionalAttendees().size() == request.getAttendees().size()) {
+                        if (event.getAttendees().contains(attendee)) {
+                            available = false;
+                            break;
+                        }
+                    } else {
+                        if (event.getAttendees().contains(attendee)
+                        && (!(request.getOptionalAttendees().contains(attendee)))) {
+                            available = false;
+                            break;
+                        }
                     }
                 }
             }
