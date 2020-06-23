@@ -31,15 +31,12 @@ public final class FindMeetingQuery {
     int length = 0;
     int duration = (int) request.getDuration();
     int start = TimeRange.getTimeInMinutes(0, 0);
-    boolean available;
-    int time;
     TimeRange availableMeetingTime = null;
     ArrayList<TimeRange> availableMeetingTimes = new ArrayList<TimeRange>();
-    TimeRange potentialMeetingTime;
     while (minutes < (24 * 60)) {
-        available = true; 
-        time = minutes + duration;
-        potentialMeetingTime = TimeRange.fromStartDuration(minutes, duration);
+        boolean available = true; 
+        int time = minutes + duration;
+        TimeRange potentialMeetingTime = TimeRange.fromStartDuration(minutes, duration);
         // if meeting overlaps with any event, check if any attendees are conflicted
         for (Event event: events) {
             if (potentialMeetingTime.overlaps(event.getWhen())) {
@@ -68,7 +65,7 @@ public final class FindMeetingQuery {
     }
 
     ArrayList<TimeRange> mergedMeetings = new ArrayList<TimeRange>();
-    if (availableMeetingTimes.size() <= 0) {
+    if (availableMeetingTimes.size() == 0) {
         return mergedMeetings;
     } else if (availableMeetingTimes.size() == 1) {
         mergedMeetings.add(availableMeetingTimes.get(0));
